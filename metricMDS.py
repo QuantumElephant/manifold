@@ -7,11 +7,10 @@ from scipy.spatial.distance import cdist
 from sklearn import manifold, datasets
 
 
-
 n=2               #power of number of samples
 m=3               #number of molecules
 
-# coordi_internal=np.loadtxt('coordi_3_internal.txt')
+coordi_internal=np.loadtxt('coordi_3_internal.txt')
 coordi=np.loadtxt('coordi_3_10^5.txt')
 out=np.empty((0,m))
 
@@ -21,11 +20,9 @@ F_lis_16_39=[]
 F_lis_51_92=[]
 F_lis_61_86=[]
 testpoint=0
-co = coordi[0:3*10 **4]
-co=co.reshape(10**4,9)
-del coordi
+co_internal = coordi_internal[0:10 **4]
 mds = manifold.MDS(3)
-MDSoutput = mds.fit_transform(co)
+MDSoutput = mds.fit_transform(co_internal)
 print("standrdok")
 standard=cdist(MDSoutput, MDSoutput, 'euclidean')
 standard=standard[0:100,0:100]
@@ -33,9 +30,9 @@ divergence=[]
 
 
 for i in range(990):
-    coordinate = co[0:10 ** n+i*10]
+    co_internal = coordi_internal[0:10 ** n+i*10]
     mds = manifold.MDS(3)
-    MDSoutput = mds.fit_transform(coordinate)
+    MDSoutput = mds.fit_transform(co_internal)
     F = cdist(MDSoutput, MDSoutput, 'euclidean')
     F_lis_1_15.append(F[1][15])
     F_lis_2_25.append(F[2][25])
@@ -63,33 +60,33 @@ print("finish part")
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),F_lis_1_15, s=1, alpha=0.5,figure = fig)
-plt.savefig("cartisian_metric_MDS1_15.png",dpi=600)
+plt.savefig("metric_MDS1_15.png",dpi=600)
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),F_lis_2_25, s=1, alpha=0.5,figure = fig)
-plt.savefig("cartisian_metric_MDS2_25.png",dpi=600)
+plt.savefig("metric_MDS2_25.png",dpi=600)
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),F_lis_16_39, s=1, alpha=0.5,figure = fig)
-plt.savefig("cartisian_metric_MDS16_39.png",dpi=600)
+plt.savefig("metric_MDS16_39.png",dpi=600)
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),F_lis_51_92, s=1, alpha=0.5,figure = fig)
-plt.savefig("cartisian_metric_MDS51_92.png",dpi=600)
+plt.savefig("metric_MDS51_92.png",dpi=600)
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),F_lis_61_86, s=1, alpha=0.5,figure = fig)
-plt.savefig("cartisian_metric_MDS61_86.png",dpi=600)
+plt.savefig("metric_MDS61_86.png",dpi=600)
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),divergence, s=1, alpha=0.5,figure = fig)
-plt.savefig("cartisian_metric_MDSconvergence.png",dpi=600)
+plt.savefig("metric_MDSconvergence.png",dpi=600)
 
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),d100 , s=1, alpha=0.5,figure = fig)
-plt.savefig("cartisian_metric_MDSconvergence_100.png",dpi=600)
+plt.savefig("metric_MDSconvergence_100.png",dpi=600)
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),d10000 , s=1, alpha=0.5,figure = fig)
-plt.savefig("cartisian_metric_MDSconvergence_10000.png",dpi=600)
+plt.savefig("metric_MDSconvergence_10000.png",dpi=600)

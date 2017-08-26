@@ -1,4 +1,7 @@
 import numpy as np
+from scipy.spatial import distance
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 import matplotlib
 matplotlib.use('Agg')
 import math
@@ -30,37 +33,33 @@ def distance_mol(molecule1, molecule2):
 # Left with 2 dimensions
 
 
-n=2               #power of number of samples
-m=3               #number of molecules
+n = 2  # power of number of samples
+m = 3  # number of molecules
 
-# coordi_internal=np.loadtxt('coordi_3_internal.txt')
-coordi=np.loadtxt('coordi_3_10^5.txt')
-out=np.empty((0,m))
+coordi_internal = np.loadtxt('coordi_3_internal.txt')
+coordi = np.loadtxt('coordi_3_10^5.txt')
+out = np.empty((0, m))
 
-F_lis_1_15=[]
-F_lis_2_25=[]
-F_lis_16_39=[]
-F_lis_51_92=[]
-F_lis_61_86=[]
-testpoint=0
-co = coordi[0:15000]
-co=co.reshape(5000,9)
-del coordi
-
-
+F_lis_1_15 = []
+F_lis_2_25 = []
+F_lis_16_39 = []
+F_lis_51_92 = []
+F_lis_61_86 = []
+testpoint = 0
+co_internal = coordi_internal[0:5000]
 iso = manifold.Isomap(n_neighbors=15, n_components=3)
-iso.fit(co)
-mani = iso.transform(co)
+iso.fit(co_internal)
+mani = iso.transform(co_internal)
 print("standrdok")
 standard = cdist(mani, mani, 'euclidean')
 standard = standard[0:100, 0:100]
 divergence = []
 
 for i in range(490):
-    coorinate = co[0:10 ** n + i * 10]
+    co_internal = coordi_internal[0:10 ** n + i * 10]
     iso = manifold.Isomap(n_neighbors=15, n_components=3)
-    iso.fit(coorinate)
-    mani = iso.transform(coorinate)
+    iso.fit(co_internal)
+    mani = iso.transform(co_internal)
     F = cdist(mani, mani, 'euclidean')
     F_lis_1_15.append(F[1][15])
     F_lis_2_25.append(F[2][25])
@@ -86,32 +85,32 @@ print("finish part")
 
 fig = plt.figure()
 plt.scatter(list(range(100, 5000, 10)), F_lis_1_15, s=1, alpha=0.5, figure=fig)
-plt.savefig("cartisian_isomap_1_15_5000.png", dpi=600)
+plt.savefig("isomap_1_15_5000.png", dpi=600)
 
 fig = plt.figure()
 plt.scatter(list(range(100, 5000, 10)), F_lis_2_25, s=1, alpha=0.5, figure=fig)
-plt.savefig("cartisian_isomap_2_25_5000.png", dpi=600)
+plt.savefig("isomap_2_25_5000.png", dpi=600)
 
 fig = plt.figure()
 plt.scatter(list(range(100, 5000, 10)), F_lis_16_39, s=1, alpha=0.5, figure=fig)
-plt.savefig("cartisian_isomap_16_39_5000.png", dpi=600)
+plt.savefig("isomap_16_39_5000.png", dpi=600)
 
 fig = plt.figure()
 plt.scatter(list(range(100, 5000, 10)), F_lis_51_92, s=1, alpha=0.5, figure=fig)
-plt.savefig("cartisian_isomap_51_92_5000.png", dpi=600)
+plt.savefig("isomap_51_92_5000.png", dpi=600)
 
 fig = plt.figure()
 plt.scatter(list(range(100, 5000, 10)), F_lis_61_86, s=1, alpha=0.5, figure=fig)
-plt.savefig("cartisian_isomap_61_86_5000.png", dpi=600)
+plt.savefig("isomap_61_86_5000.png", dpi=600)
 
 fig = plt.figure()
 plt.scatter(list(range(100, 5000, 10)), divergence, s=1, alpha=0.5, figure=fig)
-plt.savefig("cartisian_isomap_convergence_5000.png", dpi=600)
+plt.savefig("isomap_convergence_5000.png", dpi=600)
 
 fig = plt.figure()
 plt.scatter(list(range(100, 5000, 10)), d100, s=1, alpha=0.5, figure=fig)
-plt.savefig("cartisian_isomap_convergence_100_5000.png", dpi=600)
+plt.savefig("isomap_convergence_100_5000.png", dpi=600)
 
 fig = plt.figure()
 plt.scatter(list(range(100, 5000, 10)), d10000, s=1, alpha=0.5, figure=fig)
-plt.savefig("cartisian_isomap_convergence_10000_5000.png", dpi=600)
+plt.savefig("isomap_convergence_10000_5000.png", dpi=600)

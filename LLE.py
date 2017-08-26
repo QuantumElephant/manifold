@@ -6,10 +6,11 @@ from scipy import ndimage
 from scipy.spatial.distance import cdist
 from sklearn import manifold, datasets
 
+
 n=2               #power of number of samples
 m=3               #number of molecules
 
-# coordi_internal=np.loadtxt('coordi_3_internal.txt')
+coordi_internal=np.loadtxt('coordi_3_internal.txt')
 coordi=np.loadtxt('coordi_3_10^5.txt')
 out=np.empty((0,m))
 
@@ -19,12 +20,8 @@ F_lis_16_39=[]
 F_lis_51_92=[]
 F_lis_61_86=[]
 testpoint=0
-co = coordi[0:3*10 **4]
-co=co.reshape(10**4,9)
-del coordi
-
-
-LLEoutput=manifold.LocallyLinearEmbedding(n_neighbors=15, n_components=3).fit_transform(co)
+co_internal = coordi_internal[0:10 **4]
+LLEoutput=manifold.LocallyLinearEmbedding(n_neighbors=15, n_components=3).fit_transform(co_internal)
 print("standrdok")
 standard=cdist(LLEoutput, LLEoutput, 'euclidean')
 standard=standard[0:100,0:100]
@@ -32,8 +29,8 @@ divergence=[]
 
 
 for i in range(990):
-    cooridinate = co[0:10 ** n+i*10]
-    LLEoutput = manifold.LocallyLinearEmbedding(n_neighbors=15, n_components=3).fit_transform(cooridinate)
+    co_internal = coordi_internal[0:10 ** n+i*10]
+    LLEoutput = manifold.LocallyLinearEmbedding(n_neighbors=15, n_components=3).fit_transform(co_internal)
     F = cdist(LLEoutput, LLEoutput, 'euclidean')
     F_lis_1_15.append(F[1][15])
     F_lis_2_25.append(F[2][25])
@@ -61,33 +58,33 @@ print("finish part")
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),F_lis_1_15, s=1, alpha=0.5,figure = fig)
-plt.savefig("cartisian_LLE_1_15.png",dpi=600)
+plt.savefig("LLE_1_15.png",dpi=600)
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),F_lis_2_25, s=1, alpha=0.5,figure = fig)
-plt.savefig("cartisian_LLE_2_25.png",dpi=600)
+plt.savefig("LLE_2_25.png",dpi=600)
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),F_lis_16_39, s=1, alpha=0.5,figure = fig)
-plt.savefig("cartisian_LLE_16_39.png",dpi=600)
+plt.savefig("LLE_16_39.png",dpi=600)
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),F_lis_51_92, s=1, alpha=0.5,figure = fig)
-plt.savefig("cartisian_LLE_51_92.png",dpi=600)
+plt.savefig("LLE_51_92.png",dpi=600)
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),F_lis_61_86, s=1, alpha=0.5,figure = fig)
-plt.savefig("cartisian_LLE_61_86.png",dpi=600)
+plt.savefig("LLE_61_86.png",dpi=600)
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),divergence, s=1, alpha=0.5,figure = fig)
-plt.savefig("cartisian_LLE_convergence.png",dpi=600)
+plt.savefig("LLE_convergence.png",dpi=600)
 
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),d100 , s=1, alpha=0.5,figure = fig)
-plt.savefig("cartisian_LLE_convergence_100.png",dpi=600)
+plt.savefig("LLE_convergence_100.png",dpi=600)
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),d10000 , s=1, alpha=0.5,figure = fig)
-plt.savefig("cartisian_LLE_convergence_10000.png",dpi=600)
+plt.savefig("LLE_convergence_10000.png",dpi=600)

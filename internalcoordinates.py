@@ -15,13 +15,13 @@ def distance(v1,v2):                                             #not used here
     return d
 
 
-n=int(5)               #power of number of samples
+n=int(4)               #power of number of samples
 m=int(3)               #number of molecules
 
 coordi=np.loadtxt('coordi_3_10^5.txt')
 order=np.loadtxt('coordi_3_order.txt',dtype=int)
 out=np.empty((0,2*m))
-for i in range(10**n-100):                                        #for 3 molecules
+for i in range(10**n):                                        #for 3 molecules
     array=coordi[i*m:(i+1)*m]
     o=order[i]
     #    #    print("\n")
@@ -49,7 +49,7 @@ m=4
 coordi=np.loadtxt('coordi_4_10^5.txt')
 order=np.loadtxt('coordi_4_order.txt',dtype=int)
 out=np.empty((0,3*m))
-for i in range(10**n-100):                                        #for 4 molecules
+for i in range(10**n):                                        #for 4 molecules
     array=coordi[i*m:(i+1)*m]
     o=order[i]
     #    print("\n")
@@ -73,7 +73,7 @@ m=5
 coordi=np.loadtxt('coordi_5_10^5.txt')
 order=np.loadtxt('coordi_5_order.txt',dtype=int)
 out=np.empty((0,3*m))
-for i in range(10**n-100):                                        #for 5 molecules
+for i in range(10**n):                                        #for 5 molecules
     array=coordi[i*m:(i+1)*m]
     o=order[i]
 #    #    print("\n")
@@ -98,7 +98,7 @@ m=6
 coordi=np.loadtxt('coordi_6_10^5.txt')
 order=np.loadtxt('coordi_6_order.txt',dtype=int)
 out=np.empty((0,3*m))
-for i in range(10**n-100):                                        #for 6 molecules
+for i in range(10**n):                                        #for 6 molecules
     array=coordi[i*m:(i+1)*m]
     o=order[i]
 #    #    print("\n")
