@@ -25,7 +25,7 @@ n=2               #power of number of samples
 m=3               #number of molecules
 
 coordi_internal=np.loadtxt('coordi_3_internal.txt')
-coordi=np.loadtxt('coordi_3_10^5.txt')
+# coordi=np.loadtxt('coordi_3_10^5.txt')
 out=np.empty((0,m))
 
 F_lis_1_15=[]
