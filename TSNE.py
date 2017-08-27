@@ -31,8 +31,8 @@ standard=standard[0:100,0:100]
 divergence=[]
 
 
-for i in range(990):
-    coordinate = co[0:10 ** n+i*10]
+for i in range(99):
+    coordinate = co[0:10 ** n+i*100]
     TSNEoutput = manifold.TSNE(n_components=3).fit_transform(coordinate)
     F = cdist(TSNEoutput, TSNEoutput, 'euclidean')
     F_lis_1_15.append(F[1][15])
@@ -60,34 +60,34 @@ d10000 = [x / 10000 for x in divergence]
 print("finish part")
 
 fig = plt.figure()
-plt.scatter( list(range(100,10000,10)),F_lis_1_15, s=1, alpha=0.5,figure = fig)
+plt.scatter( list(range(100,10000,100)),F_lis_1_15, s=1, alpha=0.5,figure = fig)
 plt.savefig("caritisian_TSNE_1_15.png",dpi=600)
 
 fig = plt.figure()
-plt.scatter( list(range(100,10000,10)),F_lis_2_25, s=1, alpha=0.5,figure = fig)
+plt.scatter( list(range(100,10000,100)),F_lis_2_25, s=1, alpha=0.5,figure = fig)
 plt.savefig("caritisian_TSNE_2_25.png",dpi=600)
 
 fig = plt.figure()
-plt.scatter( list(range(100,10000,10)),F_lis_16_39, s=1, alpha=0.5,figure = fig)
+plt.scatter( list(range(100,10000,100)),F_lis_16_39, s=1, alpha=0.5,figure = fig)
 plt.savefig("caritisian_TSNE_16_39.png",dpi=600)
 
 fig = plt.figure()
-plt.scatter( list(range(100,10000,10)),F_lis_51_92, s=1, alpha=0.5,figure = fig)
+plt.scatter( list(range(100,10000,100)),F_lis_51_92, s=1, alpha=0.5,figure = fig)
 plt.savefig("caritisian_TSNE_51_92.png",dpi=600)
 
 fig = plt.figure()
-plt.scatter( list(range(100,10000,10)),F_lis_61_86, s=1, alpha=0.5,figure = fig)
+plt.scatter( list(range(100,10000,100)),F_lis_61_86, s=1, alpha=0.5,figure = fig)
 plt.savefig("caritisian_TSNE_61_86.png",dpi=600)
 
 fig = plt.figure()
-plt.scatter( list(range(100,10000,10)),divergence, s=1, alpha=0.5,figure = fig)
+plt.scatter( list(range(100,10000,100)),divergence, s=1, alpha=0.5,figure = fig)
 plt.savefig("caritisian_TSNE_convergence.png",dpi=600)
 
 
 fig = plt.figure()
-plt.scatter( list(range(100,10000,10)),d100 , s=1, alpha=0.5,figure = fig)
+plt.scatter( list(range(100,10000,100)),d100 , s=1, alpha=0.5,figure = fig)
 plt.savefig("caritisian_TSNE_convergence_100.png",dpi=600)
 
 fig = plt.figure()
-plt.scatter( list(range(100,10000,10)),d10000 , s=1, alpha=0.5,figure = fig)
+plt.scatter( list(range(100,10000,100)),d10000 , s=1, alpha=0.5,figure = fig)
 plt.savefig("caritisian_TSNE_convergence_10000.png",dpi=600)
