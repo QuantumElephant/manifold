@@ -10,8 +10,8 @@ from sklearn import manifold, datasets
 n=2               #power of number of samples
 m=3               #number of molecules
 
-coordi_internal=np.loadtxt('coordi_3_internal.txt')
-# coordi=np.loadtxt('coordi_3_10^5.txt')
+# coordi_internal=np.loadtxt('coordi_3_internal.txt')
+coordi=np.loadtxt('coordi_3_10^5.txt')
 out=np.empty((0,m))
 
 F_lis_1_15=[]
@@ -20,8 +20,11 @@ F_lis_16_39=[]
 F_lis_51_92=[]
 F_lis_61_86=[]
 testpoint=0
-co_internal = coordi_internal[0:10 **4]
-TSNEoutput = manifold.TSNE(n_components=3).fit_transform(co_internal)
+co = coordi[0:3*10 **4]
+co=co.reshape(10**4,9)
+del coordi
+
+TSNEoutput = manifold.TSNE(n_components=3).fit_transform(co)
 print("standrdok")
 standard=cdist(TSNEoutput, TSNEoutput, 'euclidean')
 standard=standard[0:100,0:100]
@@ -29,8 +32,8 @@ divergence=[]
 
 
 for i in range(990):
-    co_internal = coordi_internal[0:10 ** n+i*10]
-    TSNEoutput = manifold.TSNE(n_components=3).fit_transform(co_internal)
+    coordinate = co[0:10 ** n+i*10]
+    TSNEoutput = manifold.TSNE(n_components=3).fit_transform(coordinate)
     F = cdist(TSNEoutput, TSNEoutput, 'euclidean')
     F_lis_1_15.append(F[1][15])
     F_lis_2_25.append(F[2][25])
@@ -58,33 +61,33 @@ print("finish part")
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),F_lis_1_15, s=1, alpha=0.5,figure = fig)
-plt.savefig("TSNE_1_15.png",dpi=600)
+plt.savefig("caritisian_TSNE_1_15.png",dpi=600)
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),F_lis_2_25, s=1, alpha=0.5,figure = fig)
-plt.savefig("TSNE_2_25.png",dpi=600)
+plt.savefig("caritisian_TSNE_2_25.png",dpi=600)
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),F_lis_16_39, s=1, alpha=0.5,figure = fig)
-plt.savefig("TSNE_16_39.png",dpi=600)
+plt.savefig("caritisian_TSNE_16_39.png",dpi=600)
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),F_lis_51_92, s=1, alpha=0.5,figure = fig)
-plt.savefig("TSNE_51_92.png",dpi=600)
+plt.savefig("caritisian_TSNE_51_92.png",dpi=600)
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),F_lis_61_86, s=1, alpha=0.5,figure = fig)
-plt.savefig("TSNE_61_86.png",dpi=600)
+plt.savefig("caritisian_TSNE_61_86.png",dpi=600)
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),divergence, s=1, alpha=0.5,figure = fig)
-plt.savefig("TSNE_convergence.png",dpi=600)
+plt.savefig("caritisian_TSNE_convergence.png",dpi=600)
 
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),d100 , s=1, alpha=0.5,figure = fig)
-plt.savefig("TSNE_convergence_100.png",dpi=600)
+plt.savefig("caritisian_TSNE_convergence_100.png",dpi=600)
 
 fig = plt.figure()
 plt.scatter( list(range(100,10000,10)),d10000 , s=1, alpha=0.5,figure = fig)
-plt.savefig("TSNE_convergence_10000.png",dpi=600)
+plt.savefig("caritisian_TSNE_convergence_10000.png",dpi=600)
