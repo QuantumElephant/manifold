@@ -55,64 +55,63 @@ print("standrdok")
 standard = cdist(mani, mani, 'euclidean')
 standard = standard[0:100, 0:100]
 divergence = []
-for j in range(50):
 
-    for i in range(490):
-        coorinate = co[0:10 ** n + i * 10]
-        iso = manifold.Isomap(n_neighbors=15, n_components=3)
-        iso.fit(coorinate)
-        mani = iso.transform(coorinate)
-        F = cdist(mani, mani, 'euclidean')
-        F_lis_1_15.append(F[1][15])
-        F_lis_2_25.append(F[2][25])
-        F_lis_16_39.append(F[16][39])
-        F_lis_51_92.append(F[51][92])
-        F_lis_61_86.append(F[61][86])
-        F = F[0:100, 0:100]
-        di = np.sum(np.absolute(F - standard))
-        divergence.append(di)
-        if i == 10:
-            print(10)
-        if i == 200:
-            print(200)
-        if i == 500:
-            print(500)
-        if i == 800:
-            print(800)
+for i in range(490):
+    coorinate = co[0:10 ** n + i * 10]
+    iso = manifold.Isomap(n_neighbors=15, n_components=3)
+    iso.fit(coorinate)
+    mani = iso.transform(coorinate)
+    F = cdist(mani, mani, 'euclidean')
+    F_lis_1_15.append(F[1][15])
+    F_lis_2_25.append(F[2][25])
+    F_lis_16_39.append(F[16][39])
+    F_lis_51_92.append(F[51][92])
+    F_lis_61_86.append(F[61][86])
+    F = F[0:100, 0:100]
+    di = np.sum(np.absolute(F - standard))
+    divergence.append(di)
+    if i == 10:
+        print(10)
+    if i == 200:
+        print(200)
+    if i == 500:
+        print(500)
+    if i == 800:
+        print(800)
 
-    d100 = [x / 100 for x in divergence]
-    d10000 = [x / 10000 for x in divergence]
+d100 = [x / 100 for x in divergence]
+d10000 = [x / 10000 for x in divergence]
 
-    print("finish part")
+print("finish part")
 
-    fig = plt.figure()
-    plt.scatter(list(range(100, 5000, 10)), F_lis_1_15, s=1, alpha=0.5, figure=fig)
-    plt.savefig("cartisian_isomap_1_15_5000.png", dpi=600)
+fig = plt.figure()
+plt.scatter(list(range(100, 5000, 10)), F_lis_1_15, s=1, alpha=0.5, figure=fig)
+plt.savefig("cartisian_isomap_1_15_5000.png", dpi=600)
 
-    fig = plt.figure()
-    plt.scatter(list(range(100, 5000, 10)), F_lis_2_25, s=1, alpha=0.5, figure=fig)
-    plt.savefig("cartisian_isomap_2_25_5000.png", dpi=600)
+fig = plt.figure()
+plt.scatter(list(range(100, 5000, 10)), F_lis_2_25, s=1, alpha=0.5, figure=fig)
+plt.savefig("cartisian_isomap_2_25_5000.png", dpi=600)
 
-    fig = plt.figure()
-    plt.scatter(list(range(100, 5000, 10)), F_lis_16_39, s=1, alpha=0.5, figure=fig)
-    plt.savefig("cartisian_isomap_16_39_5000.png", dpi=600)
+fig = plt.figure()
+plt.scatter(list(range(100, 5000, 10)), F_lis_16_39, s=1, alpha=0.5, figure=fig)
+plt.savefig("cartisian_isomap_16_39_5000.png", dpi=600)
 
-    fig = plt.figure()
-    plt.scatter(list(range(100, 5000, 10)), F_lis_51_92, s=1, alpha=0.5, figure=fig)
-    plt.savefig("cartisian_isomap_51_92_5000.png", dpi=600)
+fig = plt.figure()
+plt.scatter(list(range(100, 5000, 10)), F_lis_51_92, s=1, alpha=0.5, figure=fig)
+plt.savefig("cartisian_isomap_51_92_5000.png", dpi=600)
 
-    fig = plt.figure()
-    plt.scatter(list(range(100, 5000, 10)), F_lis_61_86, s=1, alpha=0.5, figure=fig)
-    plt.savefig("cartisian_isomap_61_86_5000.png", dpi=600)
+fig = plt.figure()
+plt.scatter(list(range(100, 5000, 10)), F_lis_61_86, s=1, alpha=0.5, figure=fig)
+plt.savefig("cartisian_isomap_61_86_5000.png", dpi=600)
 
-    fig = plt.figure()
-    plt.scatter(list(range(100, 5000, 10)), divergence, s=1, alpha=0.5, figure=fig)
-    plt.savefig("cartisian_isomap_convergence_5000.png", dpi=600)
+fig = plt.figure()
+plt.scatter(list(range(100, 5000, 10)), divergence, s=1, alpha=0.5, figure=fig)
+plt.savefig("cartisian_isomap_convergence_5000.png", dpi=600)
 
-    fig = plt.figure()
-    plt.scatter(list(range(100, 5000, 10)), d100, s=1, alpha=0.5, figure=fig)
-    plt.savefig("cartisian_isomap_convergence_100_5000.png", dpi=600)
+fig = plt.figure()
+plt.scatter(list(range(100, 5000, 10)), d100, s=1, alpha=0.5, figure=fig)
+plt.savefig("cartisian_isomap_convergence_100_5000.png", dpi=600)
 
-    fig = plt.figure()
-    plt.scatter(list(range(100, 5000, 10)), d10000, s=1, alpha=0.5, figure=fig)
-    plt.savefig("cartisian_isomap_convergence_10000_5000.png", dpi=600)
+fig = plt.figure()
+plt.scatter(list(range(100, 5000, 10)), d10000, s=1, alpha=0.5, figure=fig)
+plt.savefig("cartisian_isomap_convergence_10000_5000.png", dpi=600)
