@@ -14,24 +14,36 @@ from scipy.spatial.distance import cdist
 
 
 
-n=2               #power of number of samples
-m=3               #number of molecules
+n=4              #power of number of samples
+m=3               #number of atomics
+mode=1            #mode=0 means cartician coordinates
+compo=2
+path = '/home/sky8/structure/'
+method = 'Isomap'
+if mode == 0:
+    mo = 'Cartisian'
+else:
+    mo = 'Internal'
 
-# coordi_internal=np.loadtxt('coordi_3_internal.txt')
-coordi=np.loadtxt('coordi_3_10^5.txt')
-
-co = coordi[0:3*10**4]
+if mode==0:
+    coordi = np.loadtxt('coordi_3_10^5.txt')
+    co = coordi[0:3 * 10 ** n]
+    co = co.reshape(10 ** n, 9)
+else:
+    coordi=np.loadtxt('coordi_3_internal.txt')
+    co = coordi[0: 10 ** n]
 del coordi
-co=co.reshape(10**4,9)
-
+dimen=co.shape[1]
 points=5000
-for j in range(4,30):
-    iso = manifold.Isomap(n_neighbors=j, n_components=3)
+fig = plt.figure()
+print(dimen)
+for j in range(4,90,5):
+    iso = manifold.Isomap(n_neighbors=j, n_components=compo)
     iso.fit(co)
     mani = iso.transform(co)
     print("standrdok")
+    mani=mani[0:100]
     standard = cdist(mani, mani, 'euclidean')
-    standard=standard[0:100,0:100]
     divergence=[]
     F_lis_1_15 = []
     F_lis_2_25 = []
@@ -40,54 +52,54 @@ for j in range(4,30):
     F_lis_61_86 = []
     
     for i in range(490):
-        coirdinate = co[0:10 ** n+i*10]
-        iso = manifold.Isomap(n_neighbors=j, n_components=3)
+        coirdinate = co[0:10 ** 2+i*10]
+        iso = manifold.Isomap(n_neighbors=j, n_components=compo)
         iso.fit(coirdinate)
         mani = iso.transform(coirdinate)
+        mani = mani[0:100]
         F=cdist(mani, mani, 'euclidean')
         F_lis_1_15.append(F[1][15])
         F_lis_2_25.append(F[2][25])
         F_lis_16_39.append(F[16][39])
         F_lis_51_92.append(F[51][92])
         F_lis_61_86.append(F[61][86])
-        F=F[0:100,0:100]
         di = np.sum(np.absolute(F - standard))
         divergence.append(di)
         if i==10:
             print(10)
         if i==200:
             print(200)
-        if i == 500:
-            print(500)
+        if i == 400:
+            print(400)
         if i==800:
             print(800)
         if i==900:
             print(900)
     
     print("finish part")
-    
-    
-    
-    fig = plt.figure()
+
+
+
     plt.scatter( list(range(100,points,10)),F_lis_1_15, s=1, alpha=0.5,figure = fig)
-    plt.savefig("/home/sky8/structure/Cartisian_isomap_1_15_neighbor%d.png" % j,dpi=600)
-    
-    fig = plt.figure()
+    plt.savefig("%s%s_%s_1_15_neighbor%d_dimension%d_%d.png" % (path,mo,method,j,dimen,compo),dpi=600)
+    plt.clf()
+
     plt.scatter( list(range(100,points,10)),F_lis_2_25, s=1, alpha=0.5,figure = fig)
-    plt.savefig("/home/sky8/structure/Cartisian_isomap_2_25_neighbor%d.png" % j,dpi=600)
+    plt.savefig("%s%s_%s_2_25_neighbor%d_dimension%d_%d.png" % (path,mo,method,j,dimen,compo),dpi=600)
+    plt.clf()
 
-    fig = plt.figure()
     plt.scatter( list(range(100,points,10)),F_lis_16_39, s=1, alpha=0.5,figure = fig)
-    plt.savefig("/home/sky8/structure/Cartisian_isomap_16_39_neighbor%d.png" % j,dpi=600)
+    plt.savefig("%s%s_%s_16_39_neighbor%d_dimension%d_%d.png" % (path,mo,method,j,dimen,compo),dpi=600)
+    plt.clf()
 
-    fig = plt.figure()
     plt.scatter( list(range(100,points,10)),F_lis_51_92, s=1, alpha=0.5,figure = fig)
-    plt.savefig("/home/sky8/structure/Cartisian_isomap_51_92_neighbor%d.png" % j,dpi=600)
+    plt.savefig("%s%s_%s_51_92_neighbor%d_dimension%d_%d.png" % (path,mo,method,j,dimen,compo),dpi=600)
+    plt.clf()
 
-    fig = plt.figure()
     plt.scatter( list(range(100,points,10)),F_lis_61_86, s=1, alpha=0.5,figure = fig)
-    plt.savefig("/home/sky8/structure/Cartisian_isomap_61_86_neighbor%d.png" % j,dpi=600)
+    plt.savefig("%s%s_%s_61_86_neighbor%d_dimension%d_%d.png" % (path,mo,method,j,dimen,compo),dpi=600)
+    plt.clf()
 
-    fig = plt.figure()
     plt.scatter( list(range(100,points,10)),divergence, s=1, alpha=0.5,figure = fig)
-    plt.savefig("/home/sky8/structure/Cartisian_isomap_convergence_neighbor%d.png" % j,dpi=600)
+    plt.savefig("%s%s_%s_convergence_neighbor%d_dimension%d_%d.png" % (path,mo,method,j,dimen,compo),dpi=600)
+    plt.clf()
