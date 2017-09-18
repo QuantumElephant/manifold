@@ -69,6 +69,6 @@ def atomic_order(atomic_number, molecule_number, coordinate):
     return out
 
 
-coordi =np.loadtxt('coordi_3_10^5.txt')         #for 4 molecules
+coordi =np.loadtxt('coordi_3_10^5.txt')         #for 3 molecules
 out=atomic_order(3, 10**3, coordi)
 np.savetxt('coordi_3_order.txt',out,fmt='%d')
