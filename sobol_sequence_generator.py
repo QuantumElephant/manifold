@@ -15,7 +15,7 @@ import numpy as np
 import sobol_sequence as sobol_seq
 from scipy.spatial.distance import cdist
 
-def generator(atom_number, molecule_number ):
+def generator(atom_number, molecule_number):
     total=sobol_seq.i4_sobol_generate_std_normal(3,atom_number*molecule_number)
     out=np.empty((0,3))
 
